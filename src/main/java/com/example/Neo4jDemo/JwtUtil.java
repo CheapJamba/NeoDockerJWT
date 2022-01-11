@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,8 @@ import java.util.Map;
 @Service
 public class JwtUtil {
 
-    private String SECRET_KEY = "secret";
+    @Value("${jwt.secretKey:default}")
+    private String SECRET_KEY;
 
     public String extractUsername(String token) {
         final Claims claims = extractAllClaims(token);
